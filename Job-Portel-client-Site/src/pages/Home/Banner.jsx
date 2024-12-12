@@ -10,7 +10,7 @@ const Banner = () => {
   }, []);
 
   return (
-    <div className="hero bg-base-200 min-h-screen">
+    <div className="hero  min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse mx-auto">
         <div className="flex-1">
           <motion.img
@@ -37,7 +37,7 @@ const Banner = () => {
           />
         </div>
         <div
-          className="flex-1"
+          className="flex-1 ml-4 md:mx-10"
           data-aos="fade-up"
           data-aos-easing="ease-out-cubic"
           data-aos-duration="2000"
