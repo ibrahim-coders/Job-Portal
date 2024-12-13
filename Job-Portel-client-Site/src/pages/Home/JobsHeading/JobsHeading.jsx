@@ -10,7 +10,7 @@ const JobsHeading = () => {
         </p>
       </div>
 
-      <div class="flex flex-wrap max-w-6xl gap-4 mx-auto my-4 md:my-10 px-6 items-center">
+      <div class="flex flex-wrap max-w-6xl gap-4 mx-auto my-4 md:my-10 md:mx-auto px-6 items-center text-center">
         <button class="border border-transparent px-4 py-4 text-gray-700 font-semibold text-lg hover:border-sky-700 hover:text-sky-700 rounded transition duration-300 shadow-custom">
           Marketing & Sale
         </button>

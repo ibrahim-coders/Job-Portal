@@ -5,8 +5,13 @@ import Swal from 'sweetalert2';
 
 import AuthContext from '../../Context/AuthContext';
 import { FcGoogle } from 'react-icons/fc';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Register = () => {
+  const location = useLocation();
+
+  const navigate = useNavigate();
+  const from = location.state || '/';
   const { creactUser, singwithGoogle } = useContext(AuthContext);
 
   const [error, setError] = useState('');
@@ -58,6 +63,7 @@ const Register = () => {
           showConfirmButton: false,
           timer: 1500,
         });
+        navigate(from);
       })
       .catch(error => {
         console.log(error);

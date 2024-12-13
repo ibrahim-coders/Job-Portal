@@ -6,8 +6,13 @@ import Swal from 'sweetalert2';
 import logings from '../../assets/Animation - 1733925332827.json';
 import { useContext, useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const location = useLocation();
+
+  const navigate = useNavigate();
+  const from = location.state || '/';
   const { loginuser, singwithGoogle } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,6 +36,7 @@ const Login = () => {
           showConfirmButton: false,
           timer: 1500,
         });
+        navigate(from);
       })
       .catch(err => {
         if (err.code === 'auth/user-not-found') {
