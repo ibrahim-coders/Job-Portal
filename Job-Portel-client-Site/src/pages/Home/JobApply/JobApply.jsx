@@ -19,7 +19,7 @@ const JobApply = () => {
     const linkedin = form.linkedin.value;
     const github = form.github.value;
     const resume = form.resume.value;
-    const coverLetter = form.coverLetter.value;
+
     // console.log(name, email, number, linkedin, github, resume, coverLetter);
     const jobApplication = {
       job_id: id,
@@ -30,7 +30,6 @@ const JobApply = () => {
       linkedin,
       github,
       resume,
-      coverLetter,
     };
     fetch('http://localhost:5000/job-application', {
       method: 'POST',
@@ -50,6 +49,7 @@ const JobApply = () => {
           icon: 'success',
           confirmButtonText: 'OK',
         });
+        navigate('/myApplication');
       })
       .catch(error => {
         console.error('Error:', error);
@@ -61,7 +61,6 @@ const JobApply = () => {
           icon: 'error',
           confirmButtonText: 'OK',
         });
-        navigate('/myApplication');
       });
   };
 
@@ -171,19 +170,6 @@ const JobApply = () => {
             className="w-full p-3 border rounded-md border-sky-600"
             required
           />
-        </div>
-
-        {/* Cover Letter */}
-        <div className="mb-4">
-          <label htmlFor="coverLetter" className="block font-medium mb-2">
-            Cover Letter:
-          </label>
-          <textarea
-            name="coverLetter"
-            placeholder="Write your cover letter here"
-            className="w-full p-2 border rounded-md"
-            rows="5"
-          ></textarea>
         </div>
 
         {/* Submit Button */}
