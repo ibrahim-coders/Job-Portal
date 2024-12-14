@@ -1,10 +1,35 @@
+import useAuth from '../../hooks/useAuth';
+import Swal from 'sweetalert2';
 const AddJobs = () => {
+  const { user } = useAuth();
   const handleAddJob = e => {
-    e.prevebtdefault();
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const initialData = Object.fromEntries(formData.entries());
+    const { min, max, currency, ...newJobs } = initialData;
+    newJobs.salaryRange = { min, max, currency };
+    newJobs.requirements = newJobs.requirements.split('\n');
+    console.log(newJobs);
+    fetch('http://localhost:5000/jobs', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(newJobs),
+    });
+    Swal.fire({
+      title: 'Job Added!',
+      text: 'Your job has been successfully posted.',
+      icon: 'success',
+      confirmButtonText: 'Okay',
+    });
+    navigate('/postJobs');
   };
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-3xl mb-6">Post a new Job</h2>
+      <h2 className="text-3xl mt-6 text-center text-gray-800 font-bold">
+        Post a new Job
+      </h2>
       <form
         onSubmit={handleAddJob}
         className="card-body space-y-6 max-w-screen-lg mx-auto p-6"
@@ -178,6 +203,7 @@ const AddJobs = () => {
               <input
                 type="text"
                 name="hr_name"
+                defaultValue={user?.name}
                 placeholder="HR Name"
                 className="input input-bordered w-full sm:max-w-md"
                 aria-label="HR Name"
@@ -192,6 +218,7 @@ const AddJobs = () => {
               </label>
               <input
                 type="email"
+                defaultValue={user?.email}
                 name="hr_email"
                 placeholder="HR Email"
                 className="input input-bordered w-full sm:max-w-md"

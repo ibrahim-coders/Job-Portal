@@ -33,8 +33,19 @@ async function run() {
       .db('jobs_portal')
       .collection('apply_jobs');
     app.get('/jobs', async (req, res) => {
-      const cursor = jobColleaction.find();
+      const email = req.query.email;
+      let query = {};
+      if (email) {
+        query = { hr_email: email };
+      }
+      const cursor = jobColleaction.find(query);
       const result = await cursor.toArray();
+      res.send(result);
+    });
+    //post
+    app.post('/jobs', async (req, res) => {
+      const newJob = req.body;
+      const result = await jobColleaction.insertOne(newJob);
       res.send(result);
     });
     //get jobs details
@@ -44,10 +55,29 @@ async function run() {
       const result = await jobColleaction.findOne(query);
       res.send(result);
     });
+    //jobs application id
+    app.get('/job-application/jobs/:job_id', async (req, res) => {
+      const jobID = req.params.job_id;
+      const query = { job_id: jobID };
+      const result = await applicationColleaction.find(query).toArray();
+      res.send(result);
+    });
     //jobs applications apis
     app.post('/job-application', async (req, res) => {
       const application = req.body;
       const result = await applicationColleaction.insertOne(application);
+      //count
+      // const id = application.job_id;
+      // const query = { _id: new ObjectId(id) };
+      // const newCount = await jobColleaction.findOne(query);
+      // if (job.applicationCount) {
+      //   newCount = job.applicationCount + 1;
+      // }
+      // const filter = { _id: new ObjectId(id) };
+      // const updateCount = {
+      //   applicationCount: newCount,
+      // };
+      // const updateResult = await jobColleaction.updateOne(filter, updateCount);
       res.send(result);
     });
     //get jobs aplications
