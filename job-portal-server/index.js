@@ -57,8 +57,8 @@ async function run() {
     });
     //jobs application id
     app.get('/job-application/jobs/:job_id', async (req, res) => {
-      const jobID = req.params.job_id;
-      const query = { job_id: jobID };
+      const jobId = req.params.job_id;
+      const query = { job_id: jobId };
       const result = await applicationColleaction.find(query).toArray();
       res.send(result);
     });
@@ -67,17 +67,26 @@ async function run() {
       const application = req.body;
       const result = await applicationColleaction.insertOne(application);
       //count
-      // const id = application.job_id;
-      // const query = { _id: new ObjectId(id) };
-      // const newCount = await jobColleaction.findOne(query);
-      // if (job.applicationCount) {
-      //   newCount = job.applicationCount + 1;
-      // }
-      // const filter = { _id: new ObjectId(id) };
-      // const updateCount = {
-      //   applicationCount: newCount,
-      // };
-      // const updateResult = await jobColleaction.updateOne(filter, updateCount);
+      const id = application.job_id;
+      const query = { _id: new ObjectId(id) };
+      const job = await jobColleaction.findOne(query);
+      let newCount = 0;
+      if (job.applicationCount) {
+        newCount = job.applicationCount + 1;
+      } else {
+        newCount = 1;
+      }
+
+      // now update the job info
+      const filter = { _id: new ObjectId(id) };
+      const updatedDoc = {
+        $set: {
+          applicationCount: newCount,
+        },
+      };
+
+      const updateResult = await jobColleaction.updateOne(filter, updatedDoc);
+      console.log(updateResult);
       res.send(result);
     });
     //get jobs aplications
@@ -96,6 +105,18 @@ async function run() {
           application.company_logo = job.company_logo;
         }
       }
+      res.send(result);
+    });
+    app.patch('/job-application/:id', async (req, res) => {
+      const id = req.params.id;
+      const data = req.body;
+      const filter = { _id: new ObjectId(id) };
+      const update = {
+        $set: {
+          status: data.status,
+        },
+      };
+      const result = await applicationColleaction.updateOne(filter, update);
       res.send(result);
     });
   } finally {

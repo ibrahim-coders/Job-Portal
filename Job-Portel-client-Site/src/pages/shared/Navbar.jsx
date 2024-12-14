@@ -84,10 +84,11 @@ const Navbar = () => {
           >
             <li role="none" className="flex items-stretch">
               <NavLink
-                to="/"
-                role="menuitem"
-                aria-haspopup="false"
-                className="flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"
+                className={({ isActive }) =>
+                  isActive
+                    ? 'flex items-center gap-2 py-4 text-emerald-500 font-semibold lg:px-8'
+                    : 'flex items-center gap-2 py-4 text-slate-700 hover:text-emerald-500 lg:px-8'
+                }
               >
                 <span>Home</span>
               </NavLink>
@@ -95,11 +96,11 @@ const Navbar = () => {
             <li role="none" className="flex items-stretch">
               <NavLink
                 to="/myApplication"
-                role="menuitem"
-                aria-current="page"
-                aria-haspopup="false"
-                className="flex items-center gap-2 py-4 text-emerald-500 transition-colors duration-300 hover:text-emerald-600 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"
-                href="javascript:void(0)"
+                className={({ isActive }) =>
+                  isActive
+                    ? 'flex items-center gap-2 py-4 text-emerald-500 font-semibold lg:px-8'
+                    : 'flex items-center gap-2 py-4 text-slate-700 hover:text-emerald-500 lg:px-8'
+                }
               >
                 <span> My Application</span>
               </NavLink>
@@ -107,9 +108,11 @@ const Navbar = () => {
             <li role="none" className="flex items-stretch">
               <NavLink
                 to="/addJobs"
-                role="menuitem"
-                aria-haspopup="false"
-                className="flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"
+                className={({ isActive }) =>
+                  isActive
+                    ? 'flex items-center gap-2 py-4 text-emerald-500 font-semibold lg:px-8'
+                    : 'flex items-center gap-2 py-4 text-slate-700 hover:text-emerald-500 lg:px-8'
+                }
               >
                 <span>Add Job</span>
               </NavLink>
@@ -117,9 +120,11 @@ const Navbar = () => {
             <li role="none" className="flex items-stretch">
               <NavLink
                 to="/postJobs"
-                role="menuitem"
-                aria-haspopup="false"
-                className="flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"
+                className={({ isActive }) =>
+                  isActive
+                    ? 'flex items-center gap-2 py-4 text-emerald-500 font-semibold lg:px-8'
+                    : 'flex items-center gap-2 py-4 text-slate-700 hover:text-emerald-500 lg:px-8'
+                }
               >
                 <span>My Post Jobs</span>
               </NavLink>
