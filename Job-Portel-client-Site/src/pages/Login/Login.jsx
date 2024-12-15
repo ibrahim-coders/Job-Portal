@@ -7,7 +7,7 @@ import logings from '../../assets/Animation - 1733925332827.json';
 import { useContext, useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { useLocation, useNavigate } from 'react-router-dom';
-
+import axios from 'axios';
 const Login = () => {
   const location = useLocation();
 
@@ -28,7 +28,12 @@ const Login = () => {
 
     loginuser(email, password)
       .then(result => {
-        console.log(result.user);
+        console.log('sign in', result.user.email);
+        const user = { email: result.user.email };
+        axios
+          .post('http://localhost:5000/jwt', user, { withCredentials: true })
+          .then(res => console.log(res.data));
+
         Swal.fire({
           position: 'justify-center',
           icon: 'success',

@@ -14,6 +14,7 @@ import AuthContext from './AuthContext';
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loding, setLoding] = useState(true);
+  console.log(user);
   //crecuser
   const creactUser = (email, password) => {
     setLoding(true);

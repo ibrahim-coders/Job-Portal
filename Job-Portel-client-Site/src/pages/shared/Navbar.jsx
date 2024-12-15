@@ -26,7 +26,6 @@ const Navbar = () => {
             aria-label="WindUI logo"
             aria-current="page"
             className="flex items-center gap-2 whitespace-nowrap py-3 text-lg focus:outline-none lg:flex-1"
-            href="javascript:void(0)"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -84,6 +83,7 @@ const Navbar = () => {
           >
             <li role="none" className="flex items-stretch">
               <NavLink
+                to="/"
                 className={({ isActive }) =>
                   isActive
                     ? 'flex items-center gap-2 py-4 text-emerald-500 font-semibold lg:px-8'
