@@ -75,6 +75,15 @@ async function run() {
         })
         .send({ success: true });
     });
+    //post jwt
+    app.post('/logOut', (req, res) => {
+      res
+        .clearCookie('token', {
+          httpOnly: true,
+          secure: false,
+        })
+        .send({ success: true });
+    });
 
     app.get('/jobs', async (req, res) => {
       const email = req.query.email;
@@ -140,7 +149,7 @@ async function run() {
       const email = req.query.email;
       const query = { application_email: email };
       if (req.user.email !== req.query.email) {
-        return res.status(403).send;
+        return res.status(403).send({ message: 'forbidden access' });
       }
       console.log('cookes', req.cookies);
       const result = await applicationColleaction.find(query).toArray();

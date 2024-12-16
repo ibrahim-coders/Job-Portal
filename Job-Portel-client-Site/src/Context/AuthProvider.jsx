@@ -10,11 +10,12 @@ import {
 } from 'firebase/auth';
 import auth from '../firebase/firebase.init';
 import AuthContext from './AuthContext';
+import axios from 'axios';
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loding, setLoding] = useState(true);
-  console.log(user);
+
   //crecuser
   const creactUser = (email, password) => {
     setLoding(true);
@@ -40,7 +41,26 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubcribe = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser);
-      setLoding(false);
+      if (currentUser?.email) {
+        const user = { email: currentUser.email };
+        axios.post('http://localhost:5000/jwt', user).then(res => {
+          console.log(res.data);
+          setLoding(false);
+        });
+      } else {
+        axios
+          .post(
+            'http://localhost:5000/logOut',
+            {},
+            {
+              withCredentials: true,
+            }
+          )
+          .then(res => {
+            console.log('logout', res.data);
+            setLoding(false);
+          });
+      }
     });
     return unsubcribe;
   }, []);
