@@ -91,10 +91,27 @@ async function run() {
       if (email) {
         query = { hr_email: email };
       }
+      const cursor = jobColleaction.find(query).limit(8);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
+    app.get('/jobs', async (req, res) => {
+      const email = req.query.email;
+      let query = {};
+      if (email) {
+        query = { hr_email: email };
+      }
       const cursor = jobColleaction.find(query);
       const result = await cursor.toArray();
       res.send(result);
     });
+    // app.get('/all-jobs', async (req, res) => {
+    //   const cursor = jobColleaction.find();
+    //   const result = await cursor.toArray();
+    //   console.log(result);
+    //   res.send(result);
+    // });
     //post
     app.post('/jobs', logger, async (req, res) => {
       console.log('now inside the api callback');

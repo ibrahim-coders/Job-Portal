@@ -86,8 +86,8 @@ const Navbar = () => {
                 to="/"
                 className={({ isActive }) =>
                   isActive
-                    ? 'flex items-center gap-2 py-4 text-emerald-500 font-semibold lg:px-8'
-                    : 'flex items-center gap-2 py-4 text-slate-700 hover:text-emerald-500 lg:px-8'
+                    ? 'flex items-center gap-2 py-4 text-emerald-500 font-semibold lg:px-4'
+                    : 'flex items-center gap-2 py-4 text-slate-700 hover:text-emerald-500 lg:px-4'
                 }
               >
                 <span>Home</span>
@@ -95,11 +95,23 @@ const Navbar = () => {
             </li>
             <li role="none" className="flex items-stretch">
               <NavLink
+                to="/all-Jobs"
+                className={({ isActive }) =>
+                  isActive
+                    ? 'flex items-center gap-2 py-4 text-emerald-500 font-semibold lg:px-4'
+                    : 'flex items-center gap-2 py-4 text-slate-700 hover:text-emerald-500 lg:px-4'
+                }
+              >
+                <span>All-Jobs</span>
+              </NavLink>
+            </li>
+            <li role="none" className="flex items-stretch">
+              <NavLink
                 to="/myApplication"
                 className={({ isActive }) =>
                   isActive
-                    ? 'flex items-center gap-2 py-4 text-emerald-500 font-semibold lg:px-8'
-                    : 'flex items-center gap-2 py-4 text-slate-700 hover:text-emerald-500 lg:px-8'
+                    ? 'flex items-center gap-2 py-4 text-emerald-500 font-semibold lg:px-4'
+                    : 'flex items-center gap-2 py-4 text-slate-700 hover:text-emerald-500 lg:px-4'
                 }
               >
                 <span> My Application</span>
@@ -110,8 +122,8 @@ const Navbar = () => {
                 to="/addJobs"
                 className={({ isActive }) =>
                   isActive
-                    ? 'flex items-center gap-2 py-4 text-emerald-500 font-semibold lg:px-8'
-                    : 'flex items-center gap-2 py-4 text-slate-700 hover:text-emerald-500 lg:px-8'
+                    ? 'flex items-center gap-2 py-4 text-emerald-500 font-semibold lg:px-4'
+                    : 'flex items-center gap-2 py-4 text-slate-700 hover:text-emerald-500 lg:px-4'
                 }
               >
                 <span>Add Job</span>
@@ -122,8 +134,8 @@ const Navbar = () => {
                 to="/postJobs"
                 className={({ isActive }) =>
                   isActive
-                    ? 'flex items-center gap-2 py-4 text-emerald-500 font-semibold lg:px-8'
-                    : 'flex items-center gap-2 py-4 text-slate-700 hover:text-emerald-500 lg:px-8'
+                    ? 'flex items-center gap-2 py-4 text-emerald-500 font-semibold lg:px-4'
+                    : 'flex items-center gap-2 py-4 text-slate-700 hover:text-emerald-500 lg:px-4'
                 }
               >
                 <span>My Post Jobs</span>
