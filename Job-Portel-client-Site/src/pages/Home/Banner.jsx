@@ -63,6 +63,9 @@ const Banner = () => {
             their search for work, making over 140,000 applications every single
             day.
           </p>
+          <button className="btn btn-primary bg-sky-600 hover:bg-sky-700 border-none text-white rounded transition-all duration-300">
+            Get Started
+          </button>
         </div>
       </div>
     </div>

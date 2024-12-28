@@ -1,9 +1,19 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const useJobs = () => {
+const useJobs = (sort, search) => {
   const [jobs, setJobs] = useState([]);
-  useEffect(() => {}, []);
-  return [jobs];
+  const [loding, setLoding] = useState(true);
+  console.log(search);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/jobss?sort=${sort}&search=${search}`)
+      .then(res => {
+        setLoding(false);
+        setJobs(res.data);
+      });
+  }, [sort, search]);
+  return { jobs, loding };
 };
 
 export default useJobs;

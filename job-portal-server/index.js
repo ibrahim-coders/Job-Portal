@@ -96,13 +96,23 @@ async function run() {
       res.send(result);
     });
 
-    app.get('/jobs', async (req, res) => {
+    app.get('/jobss', async (req, res) => {
       const email = req.query.email;
+      const sort = req.query?.sort;
+      const search = req.query?.search;
       let query = {};
+      let sortQuery = {};
+      console.log(sort);
       if (email) {
         query = { hr_email: email };
       }
-      const cursor = jobColleaction.find(query);
+      if (sort == 'true') {
+        sortQuery = { 'salaryRange.min': -1 };
+      }
+      if (search) {
+        query.location = { $regex: search, $options: 'i' };
+      }
+      const cursor = jobColleaction.find(query).sort(sortQuery);
       const result = await cursor.toArray();
       res.send(result);
     });

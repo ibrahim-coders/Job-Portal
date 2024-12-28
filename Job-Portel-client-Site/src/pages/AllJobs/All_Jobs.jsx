@@ -1,43 +1,39 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import All_Job from './All_Job';
+import useJobs from '../../hooks/useJobs';
 import { IoIosSearch } from 'react-icons/io';
 
+import Jobs from '../Job/Jobs';
+import { useState } from 'react';
+
 const All_Jobs = () => {
-  const [jobs, setJobs] = useState([]);
-  const [filteredJobs, setFilteredJobs] = useState([]);
+  const [sort, setSort] = useState(false);
   const [search, setSearch] = useState('');
+  const { jobs, loding } = useJobs(sort, search);
 
-  useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/all-jobs');
-        setJobs(response.data);
-        setFilteredJobs(response.data);
-      } catch (err) {
-        console.error('Failed to fetch jobs:', err);
-      }
-    };
-
-    fetchJobs();
-  }, []);
-
-  const handleSearch = () => {
-    const searchData = jobs.filter(job =>
-      job.title.toLowerCase().includes(search.toLowerCase())
+  if (loding) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-100">
+        <span className="loader relative">
+          <span className="absolute animate-ball1 rounded-full h-5 w-5 bg-white shadow-[30px_0_0_#ff3d00] mb-2"></span>
+          <span className="absolute animate-ball2 rounded-full h-5 w-5 bg-[#ff3d00] shadow-[30px_0_0_white] mt-2"></span>
+        </span>
+      </div>
     );
-    setFilteredJobs(searchData);
-  };
-
+  }
   return (
     <div>
+      <h2 className="text-center text-3xl my-10">All Jobs</h2>
       <div className="flex flex-wrap gap-4 items-center justify-center p-4">
+        <button
+          onClick={() => setSort(!sort)}
+          className={`btn btn-neutral ${sort && 'btn-success'}`}
+        >
+          {sort == true ? 'Sorted by Salary' : ' Sort By Salary'}
+        </button>
         <div className="relative w-full max-w-xs">
           {/* Input field for search */}
           <input
+            onKeyUp={e => setSearch(e.target.value)}
             type="text"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
             placeholder="Type here"
             className="input input-bordered input-info w-full pl-10 pr-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-info"
           />
@@ -47,23 +43,25 @@ const All_Jobs = () => {
 
         {/* Search button */}
         <button
-          onClick={handleSearch}
+          // onClick={handleSearch}
           className="btn btn-primary bg-sky-600 hover:bg-sky-700 border-none text-white rounded transition-all duration-300 px-6"
         >
           Search
         </button>
+        <select className="select select-info w-full max-w-xs">
+          <option disabled selected>
+            Select language
+          </option>
+          <option>Max</option>
+          <option>Min</option>
+        </select>
       </div>
-
-      {/* Display filtered jobs or message if no jobs */}
-      {filteredJobs.length === 0 ? (
-        <p>No jobs available</p>
-      ) : (
-        <div className="max-w-7xl px-6 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-6">
-          {filteredJobs.map(job => (
-            <All_Job key={job._id} job={job}></All_Job>
-          ))}
-        </div>
-      )}
+      ;
+      <div className="max-w-7xl px-6 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-6">
+        {jobs.map(job => (
+          <Jobs key={job._id} job={job}></Jobs>
+        ))}
+      </div>
     </div>
   );
 };

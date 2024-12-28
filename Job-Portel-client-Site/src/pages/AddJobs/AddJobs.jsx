@@ -10,7 +10,7 @@ const AddJobs = () => {
     const formData = new FormData(e.target);
     const initialData = Object.fromEntries(formData.entries());
     const { min, max, currency, ...newJobs } = initialData;
-    newJobs.salaryRange = { min, max, currency };
+    newJobs.salaryRange = { min: parseInt(min), max: parseInt(max), currency };
     newJobs.requirements = newJobs.requirements.split('\n');
     console.log(newJobs);
     fetch('http://localhost:5000/jobs', {
@@ -220,6 +220,7 @@ const AddJobs = () => {
                 <span className="label-text">HR Email</span>
               </label>
               <input
+                readOnly
                 type="email"
                 defaultValue={user?.email}
                 name="hr_email"
